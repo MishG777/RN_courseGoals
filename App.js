@@ -8,7 +8,8 @@ export default function App() {
         <Text>Another Piece of text!</Text>
       </View>
       <Text
-        style={{ margin: 16, borderWidth: 2, borderColor: "red", padding: 8 }}
+        //style={{ margin: 16, borderWidth: 2, borderColor: "red", padding: 8 }}
+        style={styles.dummyText}
       >
         Hello World!!!!
       </Text>
@@ -25,5 +26,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  dummyText: {
+    margin: 16,
+    borderWidth: 2,
+    borderColor: "red",
+    padding: 8,
   },
 });
