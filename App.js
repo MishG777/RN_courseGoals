@@ -1,36 +1,64 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text>Another Piece of text!</Text>
-      </View>
-      <Text
-        //style={{ margin: 16, borderWidth: 2, borderColor: "red", padding: 8 }}
-        style={styles.dummyText}
-      >
-        Hello World!!!!
-      </Text>
-      <StatusBar style="auto" />
+  const [enteredGoals, setEnteredGoals] = useState("");
+  const [goals, setGoals] = useState([]);
 
-      {/*<Button title="Go" />*/}
+  function goalInputHandler(enteredText) {
+    setEnteredGoals(enteredText);
+  }
+
+  function addGoalHandler() {
+    setGoals((prev) => {
+      return [...prev, enteredGoals];
+    });
+  }
+
+  return (
+    <View style={styles.appContainer}>
+      {/*input area, where users can enter a text and submit a goal */}
+      <View style={styles.inputCont}>
+        <TextInput
+          onChangeText={goalInputHandler}
+          placeholder="Enter Course Goal!"
+          placeholderTextColor="grey"
+          style={styles.textInput}
+        />
+        <Button title="Add Goal" onPress={addGoalHandler} />
+      </View>
+
+      {/*for outputing goals (list of goals)*/}
+      <View style={styles.goalsCont}>
+        <Text>{goals}</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 50,
+    paddingHorizontal: 16,
   },
-  dummyText: {
-    margin: 16,
-    borderWidth: 2,
-    borderColor: "red",
+  inputCont: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: "grey",
+  },
+  textInput: {
+    borderWidth: 1,
+    placeholder: "grey",
+    width: "65%",
     padding: 8,
+  },
+  goalsCont: {
+    flex: 5,
+    flexDirection: "column",
   },
 });
