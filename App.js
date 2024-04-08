@@ -3,6 +3,8 @@ import { StyleSheet, View, FlatList, Button } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
+import { StatusBar } from "expo-status-bar";
+
 export default function App() {
   const [goals, setGoals] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -18,28 +20,31 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      {/*input area, where users can enter a text and submit a goal */}
-      <Button title="Add New Goal" color="#5e0acc" onPress={modalHandler} />
-      <GoalInput
-        setGoal={setGoals}
-        visible={modalIsVisible}
-        modalHandler={modalHandler}
-      />
-
-      {/*for outputing goals (list of goals)*/}
-      <View style={styles.goalsCont}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => (
-            <GoalItem goalItem={itemData} onDeleteItem={deleteGoals} />
-          )}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        {/*input area, where users can enter a text and submit a goal */}
+        <Button title="Add New Goal" color="#5e0acc" onPress={modalHandler} />
+        <GoalInput
+          setGoal={setGoals}
+          visible={modalIsVisible}
+          modalHandler={modalHandler}
         />
+
+        {/*for outputing goals (list of goals)*/}
+        <View style={styles.goalsCont}>
+          <FlatList
+            data={goals}
+            renderItem={(itemData) => (
+              <GoalItem goalItem={itemData} onDeleteItem={deleteGoals} />
+            )}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -48,6 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
+    backgroundColor: "#7252cc",
   },
 
   goalsCont: {
